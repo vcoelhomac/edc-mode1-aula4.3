@@ -1,5 +1,3 @@
-name: Deploy #workflow similar ao json
-
 on: 
   push:
     branches: [master]
