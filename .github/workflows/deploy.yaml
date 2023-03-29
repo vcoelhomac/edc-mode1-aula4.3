@@ -1,3 +1,5 @@
+name: Deploy
+
 on: 
   push:
     branches: [master]
@@ -9,27 +11,27 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      with:
+    
     - name: Set up Python 3.11
       uses: action/setup-pyton@v2
       with:
         python-version:3.11
-      - name: HashiCorp - Setup Terraform
-        uses: hashicorp/setup-terraform@v1.4.2
+    - name: HashiCorp - Setup Terraform
+      uses: hashicorp/setup-terraform@v1.4.2
       
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
         with
           aws-access-key-id: ${{screts.AWS_ACCESS_KEY_ID}}
           aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY_ID}}
           aws-region: us-east-2
       
-      -name: IaC Apply
-        env:
-          COMMAND_IAC-TERRAFORM: terraform
-        run: |
-          cd IAC-TERRAFORM
-          $COMMAND_IAC-TERRAFORM init
-          $COMMAND_IAC-TERRAFORM validate
-          $COMMAND_IAC-TERRAFORM plan
-          $COMMAND_IAC-TERRAFORM apply -auto-approve
+    -name: IaC Apply
+     env:
+       COMMAND_IAC-TERRAFORM: terraform
+     run: |
+      cd IAC-TERRAFORM
+      $COMMAND_IAC-TERRAFORM init
+      $COMMAND_IAC-TERRAFORM validate
+      $COMMAND_IAC-TERRAFORM plan
+      $COMMAND_IAC-TERRAFORM apply -auto-approve
